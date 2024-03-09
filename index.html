@@ -3,13 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Raining Matrix Code</title>
-<link rel="stylesheet" type="text/css" href="style.css">
+<title>SHECODE{focus to find}</title> <!-- Set the title here -->
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        overflow: hidden;
+        background-color: black;
+        color: green;
+        font-family: monospace;
+    }
+
+    .stream {
+        position: absolute;
+        left: 0;
+        opacity: 0.7;
+        animation: fall linear infinite;
+    }
+
+    .stream span {
+        display: block;
+        transform: translateY(-100%);
+    }
+
+    @keyframes fall {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(110%); }
+    }
+</style>
+<script>
+    // Disable right-click context menu
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+</script>
 </head>
 <body>
-<div class="matrix-container">
-    <canvas id="matrix"></canvas>
-</div>
-<script src="script.js"></script>
+<div id="matrix-container"></div>
+
+<script>
+    const matrixContainer = document.getElementById('matrix-container');
+    const words = ["SHECODE", "REDTEAM", "THRISSUR"];
+    const streamCount = 50;
+
+    function createStream() {
+        const stream = document.createElement('div');
+        stream.className = 'stream';
+        const speed = Math.random() * 4 + 2;
+        const column = Math.floor(Math.random() * 100);
+        stream.style.left = column + 'vw';
+        stream.style.animationDuration = speed + 's';
+
+        for (let i = 0; i < 30; i++) {
+            const word = words[Math.floor(Math.random() * words.length)];
+            const symbol = document.createElement('span');
+            symbol.textContent = word.charAt(i % word.length); // Repeat words if stream length exceeds word length
+            symbol.style.opacity = Math.random();
+            stream.appendChild(symbol);
+        }
+
+        matrixContainer.appendChild(stream);
+
+        setTimeout(() => {
+            matrixContainer.removeChild(stream);
+        }, 10000);
+    }
+
+    function init() {
+        setInterval(createStream, 200);
+    }
+
+    init();
+</script>
+<!--
+    You Got Clickbaited.
+    SHECODE{matrixnevergetsold3ql}
+-->
 </body>
 </html>
